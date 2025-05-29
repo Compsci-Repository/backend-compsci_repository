@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_cors import CORS
 
 from app.controller.getfile import getfile
 from app.models.User import Base
@@ -10,6 +11,7 @@ def create_app():
             SQLALCHEMY_TRACK_MODIFICATIONS = False)
   app.add_routes("/getfile", "getfile", getfile, ['GET'])
 
+  CORS(app.get_app()) # Enable CORS for all routes
   db = App.get_db()
   with app.get_app().app_context():
     if db is not None:
